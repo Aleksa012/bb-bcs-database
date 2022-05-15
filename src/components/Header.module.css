@@ -1,0 +1,38 @@
+.header {
+  background-color: drgb(255, 255, 255);
+  height: 8rem;
+  display: flex;
+  align-items: center;
+  padding: 0 5rem;
+  justify-content: center;
+  margin-bottom: 2rem;
+}
+
+.header nav {
+  width: 80%;
+  border: 2px solid black;
+  border-top: none;
+  padding: 2.5rem 10rem;
+  box-shadow: 0 2rem 8rem black;
+}
+
+.header ul {
+  font-size: 1.8rem;
+  display: flex;
+  gap: 2rem;
+  align-items: center;
+}
+
+.header ul a:first-child {
+  font-size: 2.5rem;
+  font-weight: bold;
+}
+
+.header ul a {
+  color: black;
+  transition: all 0.3s;
+}
+
+.header ul a:hover {
+  color: green;
+}
