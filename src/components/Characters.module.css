@@ -8,6 +8,10 @@
   transition: all 0.2s;
 }
 
+.empty {
+  font-size: 3rem;
+}
+
 @media screen and (max-width: 1800px) {
   .chars-page {
     grid-template-columns: repeat(3, 1fr);
