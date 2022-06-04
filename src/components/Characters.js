@@ -1,4 +1,5 @@
 import React, { useState, useEffect, Fragment } from "react";
+import { useSelector } from "react-redux";
 
 import classes from "./Characters.module.css";
 
@@ -11,11 +12,14 @@ function Characters() {
   const [filter, setFilter] = useState("");
   const [isLoaded, setIsLoaded] = useState(false);
 
+  const favorites = useSelector((store) => store.favorites);
+
   useEffect(() => {
     const getChars = async function (filter) {
       const data = await fetch(
         `https://www.breakingbadapi.com/api/characters?name=${filter}`
       ).then((res) => res.json());
+      console.log(favorites);
 
       setCharacters(data);
       setIsLoaded(true);
@@ -32,16 +36,14 @@ function Characters() {
       {!isLoaded && <Loading />}
       {isLoaded && (
         <div className={classes["chars-page"]}>
-          <FilterForm setChars={setCharacters} toFilter={getFilter} />
-          {characters.length != 0 ? (
+          <FilterForm
+            chars={characters}
+            setChars={setCharacters}
+            toFilter={getFilter}
+          />
+          {characters.length !== 0 ? (
             characters.map((char) => (
-              <Card
-                key={char.char_id}
-                name={char.name}
-                img={char.img}
-                status={char.status}
-                birthday={char.birthday}
-              />
+              <Card key={char.char_id} character={char} />
             ))
           ) : (
             <EmptySearch />

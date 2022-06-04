@@ -1,11 +1,13 @@
 import React, { useState, useEffect } from "react";
 import { FaSearch } from "react-icons/fa";
+import { useSelector } from "react-redux";
 
 import classes from "./FilterForm.module.css";
 
-function FilterForm(props) {
-  const [filteredChar, setFilteredChar] = useState("");
+function FilterForm({ chars, toFilter, setChars }) {
   const [category, setCategory] = useState("");
+
+  const favorites = useSelector((store) => store.favorites);
 
   useEffect(() => {
     const getCharactersByCategory = async function (category) {
@@ -13,21 +15,22 @@ function FilterForm(props) {
         `https://www.breakingbadapi.com/api/characters?category=${category}`
       ).then((res) => res.json());
 
-      props.setChars(data);
-      console.log(data);
+      setChars(data);
     };
 
     getCharactersByCategory(category);
-  }, [category]);
+  }, [category, setChars]);
 
   const filterChar = (e) => {
     e.preventDefault();
 
-    props.toFilter(e.target.value.trim().toLowerCase());
+    toFilter(e.target.value.trim().toLowerCase());
   };
 
-  const radioCheck = (e) => {
-    setCategory(e.target.value);
+  const filterByCategory = (e) => {
+    e.preventDefault();
+
+    setCategory(e.target.textContent);
   };
 
   return (
@@ -46,20 +49,21 @@ function FilterForm(props) {
           <FaSearch className={classes["filter-btn__icon"]} />
         </button>
       </div>
-      <input
-        type="radio"
-        name="filter"
-        className={classes["filter-radio"]}
-        onClick={radioCheck}
-        value="Breaking Bad"
-      />
-      <input
-        type="radio"
-        name="filter"
-        className={classes["filter-radio"]}
-        onClick={radioCheck}
-        value="Better Call Saul"
-      />
+      <button onClick={filterByCategory}>Breaking Bad</button>
+      <button onClick={filterByCategory}>Better Call Saul</button>
+      <button
+        onClick={(e) => {
+          e.preventDefault();
+
+          setChars(
+            chars.filter((char) => {
+              return favorites.includes(char.char_id);
+            })
+          );
+        }}
+      >
+        Favorites
+      </button>
     </form>
   );
 }

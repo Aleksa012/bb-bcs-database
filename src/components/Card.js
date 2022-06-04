@@ -1,15 +1,27 @@
-import React from "react";
+import React, { useState } from "react";
+
+import Modal from "./Modal";
 
 import classes from "./Card.module.css";
 
-function Card({ img, name, birthday, status }) {
+function Card({ character: char }) {
+  const [showModal, setShowModal] = useState(false);
+
+  const seeDetails = (e) => {
+    e.preventDefault();
+
+    setShowModal(true);
+  };
+
   return (
     <article className={classes.card}>
-      <img src={img} alt={name} />
+      <img src={char.img} alt={char.name} />
       <div className={classes["card__info"]}>
-        <span className={classes["card__name"]}>{name}</span>
-        <span className={classes["card__birthday"]}>{birthday}</span>
-        <span className={classes["card__status"]}>{status}</span>
+        <span className={classes["card__name"]}>{char.name}</span>
+        <span className={classes["card__birthday"]}>{char.birthday}</span>
+        <span className={classes["card__status"]}>{char.status}</span>
+        <button onClick={seeDetails}>Details</button>
+        {showModal && <Modal character={char} setShowModal={setShowModal} />}
       </div>
     </article>
   );

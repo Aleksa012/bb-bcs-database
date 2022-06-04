@@ -1,0 +1,45 @@
+.backdrop {
+  position: fixed;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  z-index: 5;
+  background-color: rgba(0, 0, 0, 0.466);
+}
+
+.modal {
+  height: 70rem;
+  width: 120rem;
+  background-color: aqua;
+  position: static;
+  z-index: 10;
+  display: flex;
+  padding: 5rem;
+}
+
+.bookmark-container {
+  padding: 1rem;
+  height: 5rem;
+  width: 5rem;
+  border: 2px solid;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 100%;
+  cursor: pointer;
+}
+
+.bookmark {
+  font-size: 3rem;
+  transition: all 0.3s;
+}
+
+.bookmark--checked {
+  font-size: 3rem;
+  color: gold;
+  background-color: aqua;
+}
